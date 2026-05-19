@@ -1,1 +1,737 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BINTURONG — Cara Bermain</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --brown:   #5C3A1E;
+    --amber:   #E8A020;
+    --cream:   #FFF8ED;
+    --forest:  #2D6A4F;
+    --moss:    #52B788;
+    --rust:    #C44B1B;
+    --shadow:  rgba(92,58,30,0.18);
+    --card-w:  min(420px, 94vw);
+  }
 
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--brown);
+    background-image:
+      radial-gradient(ellipse 80% 60% at 50% 0%, #7a4e28 0%, transparent 70%),
+      repeating-linear-gradient(
+        135deg,
+        rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px,
+        transparent 1px, transparent 24px
+      );
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Nunito', sans-serif;
+    color: var(--brown);
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  header {
+    width: 100%;
+    padding: 20px 16px 10px;
+    text-align: center;
+    position: relative;
+  }
+  header h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(2rem, 9vw, 3.6rem);
+    color: var(--amber);
+    text-shadow: 3px 4px 0 var(--brown), 0 0 40px rgba(232,160,32,.4);
+    letter-spacing: 2px;
+    line-height: 1;
+  }
+  header p.tagline {
+    color: var(--cream);
+    font-size: .85rem;
+    font-weight: 600;
+    opacity: .8;
+    margin-top: 4px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ── PROGRESS BAR ── */
+  .progress-wrap {
+    width: var(--card-w);
+    margin: 8px auto 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .progress-bar {
+    flex: 1;
+    height: 6px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--moss), var(--amber));
+    border-radius: 99px;
+    transition: width .4s cubic-bezier(.4,0,.2,1);
+  }
+  .progress-label {
+    color: var(--cream);
+    font-size: .75rem;
+    font-weight: 700;
+    white-space: nowrap;
+    opacity: .7;
+  }
+
+  /* ── SLIDER VIEWPORT ── */
+  .slider-viewport {
+    width: 100%;
+    overflow: hidden;
+    padding: 12px 0 24px;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .slider-viewport:active { cursor: grabbing; }
+
+  .slider-track {
+    display: flex;
+    gap: 16px;
+    padding: 0 calc((100vw - var(--card-w)) / 2);
+    transition: transform .38s cubic-bezier(.4,0,.2,1);
+    will-change: transform;
+  }
+
+  /* ── CARD ── */
+  .card {
+    flex: 0 0 var(--card-w);
+    background: var(--cream);
+    border-radius: 24px;
+    box-shadow:
+      0 8px 32px var(--shadow),
+      0 2px 0 rgba(255,255,255,.15) inset;
+    padding: 28px 26px 24px;
+    position: relative;
+    overflow: hidden;
+    min-height: 480px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--card-accent, transparent);
+    opacity: .07;
+    pointer-events: none;
+  }
+
+  .card-badge {
+    position: absolute;
+    top: 18px; right: 18px;
+    width: 44px; height: 44px;
+    background: var(--badge-color, var(--amber));
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    box-shadow: 0 3px 10px rgba(0,0,0,.2);
+  }
+
+  .card-num {
+    position: absolute;
+    top: 18px; left: 18px;
+    font-family: 'Fredoka One', cursive;
+    font-size: .8rem;
+    color: var(--forest);
+    opacity: .5;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .card-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(1.3rem, 5vw, 1.75rem);
+    color: var(--forest);
+    line-height: 1.1;
+    padding-right: 50px;
+    padding-top: 26px;
+  }
+  .card-subtitle {
+    font-size: .78rem;
+    font-weight: 700;
+    color: var(--rust);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: -10px;
+  }
+
+  .card-body {
+    flex: 1;
+    font-size: .92rem;
+    line-height: 1.65;
+    color: #3a2710;
+  }
+
+  .card-body b { color: var(--forest); }
+  .card-body em { font-style: normal; color: var(--rust); font-weight: 700; }
+
+  /* pill tags */
+  .pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 2px;
+  }
+  .pill {
+    padding: 4px 12px;
+    border-radius: 99px;
+    font-size: .78rem;
+    font-weight: 700;
+    background: var(--forest);
+    color: var(--cream);
+  }
+  .pill.amber { background: var(--amber); color: var(--brown); }
+  .pill.rust  { background: var(--rust);  color: #fff; }
+  .pill.moss  { background: var(--moss);  color: #fff; }
+
+  /* numbered steps */
+  .steps { display: flex; flex-direction: column; gap: 10px; }
+  .step  { display: flex; gap: 12px; align-items: flex-start; }
+  .step-n {
+    flex: 0 0 26px; height: 26px;
+    background: var(--forest);
+    color: var(--cream);
+    border-radius: 50%;
+    font-size: .8rem;
+    font-weight: 900;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+  .step-t { font-size: .9rem; line-height: 1.55; color: #3a2710; }
+
+  /* highlight box */
+  .box {
+    background: #f0ebe1;
+    border-left: 4px solid var(--box-color, var(--amber));
+    border-radius: 0 12px 12px 0;
+    padding: 10px 14px;
+    font-size: .87rem;
+    line-height: 1.6;
+    color: #4a2e0e;
+  }
+
+  /* beanometer / activitymeter table */
+  .meter-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .82rem;
+    margin-top: 4px;
+  }
+  .meter-table th {
+    background: var(--forest);
+    color: var(--cream);
+    padding: 5px 8px;
+    font-size: .72rem;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    font-weight: 700;
+  }
+  .meter-table td {
+    padding: 5px 8px;
+    border-bottom: 1px solid #e0d8cc;
+    vertical-align: middle;
+    text-align: center;
+  }
+  .meter-table tr:last-child td { border-bottom: none; }
+  .meter-table tr:nth-child(even) td { background: #f7f2e9; }
+  .badge-dots { display: flex; gap: 3px; justify-content: center; }
+  .dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--amber);
+    border: 2px solid var(--brown);
+  }
+
+  /* card list with icons */
+  .card-list { display: flex; flex-direction: column; gap: 8px; }
+  .card-list-item {
+    display: flex; gap: 10px; align-items: center;
+    background: #f0ebe1;
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: .85rem;
+    font-weight: 600;
+    color: #3a2710;
+  }
+  .card-list-item span.ic { font-size: 1.2rem; }
+
+  /* ── NAVIGATION DOTS ── */
+  .nav-dots {
+    display: flex; gap: 8px;
+    justify-content: center;
+    padding: 0 0 10px;
+  }
+  .dot-btn {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+    border: none; cursor: pointer;
+    transition: background .2s, transform .2s;
+    padding: 0;
+  }
+  .dot-btn.active {
+    background: var(--amber);
+    transform: scale(1.4);
+  }
+
+  /* ── ARROW BUTTONS ── */
+  .arrows {
+    display: flex; gap: 12px;
+    justify-content: center;
+    padding-bottom: 28px;
+  }
+  .arr-btn {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,.25);
+    background: rgba(255,255,255,.1);
+    color: var(--cream);
+    font-size: 1.4rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .2s, transform .1s;
+    backdrop-filter: blur(4px);
+  }
+  .arr-btn:hover { background: rgba(255,255,255,.2); }
+  .arr-btn:active { transform: scale(.92); }
+  .arr-btn:disabled { opacity: .3; cursor: default; }
+
+  /* ── SWIPE HINT ── */
+  .swipe-hint {
+    color: rgba(255,255,255,.45);
+    font-size: .72rem;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding-bottom: 6px;
+    animation: hint-pulse 2.5s ease-in-out infinite;
+  }
+  @keyframes hint-pulse {
+    0%,100% { opacity: .45; }
+    50%      { opacity: .9; }
+  }
+
+  /* card-specific accents */
+  .card.slide-intro  { --card-accent: #2D6A4F; }
+  .card.slide-setup  { --card-accent: #E8A020; --badge-color: var(--amber); }
+  .card.slide-kartu  { --card-accent: #C44B1B; --badge-color: var(--rust); }
+  .card.slide-giliran{ --card-accent: #2D6A4F; --badge-color: var(--forest); }
+  .card.slide-koleksi{ --card-accent: #52B788; --badge-color: var(--moss); }
+  .card.slide-dagang { --card-accent: #E8A020; --badge-color: var(--amber); }
+  .card.slide-panen  { --card-accent: #C44B1B; --badge-color: var(--rust); }
+  .card.slide-khusus { --card-accent: #52B788; --badge-color: var(--moss); }
+  .card.slide-akhir  { --card-accent: #E8A020; --badge-color: var(--amber); }
+
+  /* responsive */
+  @media (max-width: 440px) {
+    .card { padding: 22px 18px 18px; border-radius: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🦝 BINTURONG</h1>
+  <p class="tagline">Koleksi Aktivitas · Raih Badge · Selamatkan Binturong!</p>
+</header>
+
+<div class="progress-wrap">
+  <div class="progress-bar"><div class="progress-fill" id="prog"></div></div>
+  <div class="progress-label" id="prog-label">1 / 9</div>
+</div>
+
+<p class="swipe-hint">← geser kartu →</p>
+
+<div class="slider-viewport" id="viewport">
+  <div class="slider-track" id="track">
+
+    <!-- SLIDE 1: INTRO -->
+    <div class="card slide-intro">
+      <div class="card-num">Slide 01</div>
+      <div class="card-badge">🦝</div>
+      <div class="card-title">Apa Itu Binturong?</div>
+      <div class="card-subtitle">Pengantar Permainan</div>
+      <div class="card-body">
+        <b>Binturong</b> adalah kartu permainan tentang menjadi fans berat binturong — musang beruang langka yang makin terancam!<br><br>
+        Setiap pemain berlomba <em>mengoleksi aktivitas</em> pendukung binturong: mulai dari mengamati di hutan hingga kampanye media sosial. Makin banyak aktivitas sejenis yang kamu koleksi, makin besar nilai badge reward-mu.<br><br>
+        <b>Pemain dengan total badge terbanyak di akhir permainan — menang!</b>
+        <br><br>
+        <div class="pills">
+          <span class="pill">3–7 Pemain</span>
+          <span class="pill amber">Usia 10+</span>
+          <span class="pill moss">±45 Menit</span>
+        </div>
+      </div>
+      <div class="box" style="--box-color: var(--forest)">
+        🌿 <b>Fakta:</b> Binturong (<i>Arctictis binturong</i>) termasuk spesies rentan. Bermain sambil peduli lingkungan!
+      </div>
+    </div>
+
+    <!-- SLIDE 2: SETUP -->
+    <div class="card slide-setup">
+      <div class="card-num">Slide 02</div>
+      <div class="card-badge">🎲</div>
+      <div class="card-title">Persiapan Main</div>
+      <div class="card-subtitle">Setup & Komponen</div>
+      <div class="card-body">
+        <div class="steps">
+          <div class="step">
+            <div class="step-n">1</div>
+            <div class="step-t">Bagikan <b>papan lapangan koleksi</b> kepada setiap pemain. Sisi 3 lapangan untuk <b>3 pemain</b>, sisi 2 lapangan untuk <b>4–7 pemain</b>.</div>
+          </div>
+          <div class="step">
+            <div class="step-n">2</div>
+            <div class="step-t">Tentukan <b>pemain pertama</b> dan berikan kartu Starting Player.</div>
+          </div>
+          <div class="step">
+            <div class="step-n">3</div>
+            <div class="step-t">Kocok semua <b>126 kartu aktivitas</b> lalu bagikan <b>5 kartu</b> ke setiap pemain.</div>
+          </div>
+          <div class="step">
+            <div class="step-n">4</div>
+            <div class="step-t">Sisa kartu jadi <b>draw pile</b> di tengah meja, sisi badge reward menghadap atas.</div>
+          </div>
+        </div>
+      </div>
+      <div class="box" style="--box-color:var(--rust)">
+        ⚠️ <b>ATURAN TERPENTING:</b> Urutan kartu di tanganmu <em>tidak boleh diubah</em> sepanjang permainan! Kartu pertama yang kamu terima selalu di posisi paling depan.
+      </div>
+    </div>
+
+    <!-- SLIDE 3: KARTU -->
+    <div class="card slide-kartu">
+      <div class="card-num">Slide 03</div>
+      <div class="card-badge">🃏</div>
+      <div class="card-title">9 Jenis Aktivitas & Badge</div>
+      <div class="card-subtitle">126 Kartu Total</div>
+      <div class="card-body">
+        <table class="meter-table">
+          <tr>
+            <th>Aktivitas</th>
+            <th>Jml Kartu</th>
+            <th>Badge Max</th>
+          </tr>
+          <tr><td>📸 Foto Satwa</td><td>22</td><td><div class="badge-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></td></tr>
+          <tr><td>🌿 Patroli Hutan</td><td>20</td><td><div class="badge-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></td></tr>
+          <tr><td>🏕️ Kamp Konservasi</td><td>18</td><td><div class="badge-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></td></tr>
+          <tr><td>📢 Kampanye Sosmed</td><td>16</td><td><div class="badge-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></td></tr>
+          <tr><td>🌱 Tanam Pohon</td><td>14</td><td><div class="badge-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></td></tr>
+          <tr><td>🔬 Riset Lapangan</td><td>12</td><td><div class="badge-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></td></tr>
+          <tr><td>🎓 Edukasi Sekolah</td><td>10</td><td><div class="badge-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></td></tr>
+          <tr><td>🏆 Donasi Dana</td><td>8</td><td><div class="badge-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></td></tr>
+          <tr><td>🦝 Adopsi Simbolik</td><td>6</td><td><div class="badge-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></td></tr>
+        </table>
+        <p style="font-size:.75rem;margin-top:8px;color:#7a5c3a;">Total: 22+20+18+16+14+12+10+8+6 = <b>126 kartu</b></p>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: GILIRAN -->
+    <div class="card slide-giliran">
+      <div class="card-num">Slide 04</div>
+      <div class="card-badge">🔄</div>
+      <div class="card-title">Urutan Giliran</div>
+      <div class="card-subtitle">4 Fase per Giliran</div>
+      <div class="card-body">
+        <div class="steps">
+          <div class="step">
+            <div class="step-n" style="background:var(--rust)">1</div>
+            <div class="step-t"><b>Koleksi dari Tangan</b> — Kamu <em>wajib</em> mengoleksi kartu terdepan di tanganmu. Boleh koleksi 1 kartu tambahan (yang kini terdepan).</div>
+          </div>
+          <div class="step">
+            <div class="step-n" style="background:var(--amber);color:var(--brown)">2</div>
+            <div class="step-t"><b>Buka & Dagang</b> — Balik 2 kartu teratas dari draw pile. Boleh dipakai sendiri atau ditawarkan ke pemain lain untuk ditukar.</div>
+          </div>
+          <div class="step">
+            <div class="step-n" style="background:var(--forest)">3</div>
+            <div class="step-t"><b>Koleksi Kartu Hasil Dagang</b> — Semua pemain yang punya kartu horizontal (hasil dagang) wajib mengoleksinya sekarang.</div>
+          </div>
+          <div class="step">
+            <div class="step-n" style="background:var(--moss)">4</div>
+            <div class="step-t"><b>Ambil 3 Kartu</b> — Ambil 3 kartu dari draw pile, letakkan di belakang tangan, sesuai urutan ambil.</div>
+          </div>
+        </div>
+      </div>
+      <div class="box" style="--box-color:var(--forest)">
+        ✅ Giliran berpindah searah jarum jam. Pemain pertama memegang kartu Starting Player sepanjang permainan.
+      </div>
+    </div>
+
+    <!-- SLIDE 5: KOLEKSI -->
+    <div class="card slide-koleksi">
+      <div class="card-num">Slide 05</div>
+      <div class="card-badge">🏕️</div>
+      <div class="card-title">Aturan Koleksi Aktivitas</div>
+      <div class="card-subtitle">Cara Mengisi Lapangan</div>
+      <div class="card-body">
+        <div class="card-list">
+          <div class="card-list-item"><span class="ic">☝️</span>Setiap lapangan hanya boleh berisi <b>1 jenis aktivitas</b></div>
+          <div class="card-list-item"><span class="ic">✌️</span>Boleh punya jenis yang sama di <b>2 lapangan berbeda</b></div>
+          <div class="card-list-item"><span class="ic">🃏</span>Kartu disusun <b>menumpuk ke atas</b> dalam lapangan</div>
+          <div class="card-list-item"><span class="ic">🔄</span>Jika tidak ada ruang, kamu <b>wajib panen dulu</b> sebelum koleksi</div>
+          <div class="card-list-item"><span class="ic">🚫</span>Tidak bisa menaruh <b>2 jenis berbeda</b> di lapangan yang sama</div>
+        </div>
+        <br>
+        <div class="box" style="--box-color:var(--moss)">
+          🛡️ <b>Aturan Perlindungan:</b> Jika lapanganmu hanya punya 1 kartu, kamu <em>tidak boleh</em> memanen lapangan itu selama masih ada lapangan lain yang lebih dari 1 kartu.
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: DAGANG -->
+    <div class="card slide-dagang">
+      <div class="card-num">Slide 06</div>
+      <div class="card-badge">🤝</div>
+      <div class="card-title">Aturan Berdagang</div>
+      <div class="card-subtitle">Fase 2 — Buka & Dagang</div>
+      <div class="card-body">
+        <div class="steps">
+          <div class="step">
+            <div class="step-n">→</div>
+            <div class="step-t">Hanya <b>pemain aktif</b> yang bisa berdagang. Pemain lain tidak boleh saling dagang antar mereka.</div>
+          </div>
+          <div class="step">
+            <div class="step-n">→</div>
+            <div class="step-t">Semua pemain boleh menawarkan <b>kartu dari tangan mereka</b>, di posisi manapun.</div>
+          </div>
+          <div class="step">
+            <div class="step-n">→</div>
+            <div class="step-t">Pemain aktif boleh menambah <b>2 kartu yang baru dibalik</b> ke dalam penawaran dagang.</div>
+          </div>
+          <div class="step">
+            <div class="step-n">→</div>
+            <div class="step-t"><em>Tidak boleh</em> memperdagangkan kartu yang <b>sudah diterima dari dagang</b> di giliran yang sama.</div>
+          </div>
+          <div class="step">
+            <div class="step-n">→</div>
+            <div class="step-t">Boleh tukar <b>berapa kartu pun</b> dengan berapa kartu pun (misal: 2 Foto Satwa untuk 1 Tanam Pohon).</div>
+          </div>
+          <div class="step">
+            <div class="step-n">→</div>
+            <div class="step-t">Kartu hasil dagang ditaruh <b>horizontal</b> di samping lapangan — bukan di tangan!</div>
+          </div>
+        </div>
+      </div>
+      <div class="box" style="--box-color:var(--amber)">
+        🎁 <b>Hadiah:</b> Bisa memberi kartu ke pemain lain secara gratis, tapi penerima boleh menolak.
+      </div>
+    </div>
+
+    <!-- SLIDE 7: PANEN / BADGE -->
+    <div class="card slide-panen">
+      <div class="card-num">Slide 07</div>
+      <div class="card-badge">🏆</div>
+      <div class="card-title">Panen & Badge Reward</div>
+      <div class="card-subtitle">Cara Mendapat Badge</div>
+      <div class="card-body">
+        <p style="font-size:.88rem;margin-bottom:10px;">Kamu bisa panen kapan saja, bahkan saat bukan giliranmu. Cek <b>activitymeter</b> di kartu paling atas lapanganmu:</p>
+        <table class="meter-table">
+          <tr>
+            <th>Kartu di Lapangan</th>
+            <th>Badge Reward</th>
+          </tr>
+          <tr><td>1–2 kartu (bervariasi)</td><td>0 badge</td></tr>
+          <tr><td>Jumlah minimum 1 badge</td><td><div class="badge-dots"><div class="dot"></div></div></td></tr>
+          <tr><td>Jumlah minimum 2 badge</td><td><div class="badge-dots"><div class="dot"></div><div class="dot"></div></div></td></tr>
+          <tr><td>Jumlah minimum 3 badge</td><td><div class="badge-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></td></tr>
+          <tr><td>Jumlah minimum 4 badge</td><td><div class="badge-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></td></tr>
+        </table>
+        <br>
+        <div class="steps">
+          <div class="step"><div class="step-n">①</div><div class="step-t">Hitung kartu di lapangan</div></div>
+          <div class="step"><div class="step-n">②</div><div class="step-t">Cek activitymeter di kartu teratas</div></div>
+          <div class="step"><div class="step-n">③</div><div class="step-t">Balik kartu sejumlah badge yang kamu dapat — taruh di <b>tumpukan badge</b></div></div>
+          <div class="step"><div class="step-n">④</div><div class="step-t">Sisa kartu buang ke discard pile</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: ATURAN KHUSUS -->
+    <div class="card slide-khusus">
+      <div class="card-num">Slide 08</div>
+      <div class="card-badge">⚙️</div>
+      <div class="card-title">Aturan Khusus</div>
+      <div class="card-subtitle">Detail Penting</div>
+      <div class="card-body">
+        <div class="card-list">
+          <div class="card-list-item"><span class="ic">🔁</span><div><b>Draw Pile Habis:</b> Kocok ulang discard pile jadi draw pile baru.</div></div>
+          <div class="card-list-item"><span class="ic">🤲</span><div><b>Tangan Kosong:</b> Jika tidak punya kartu di awal giliran, langsung ke Fase 2.</div></div>
+          <div class="card-list-item"><span class="ic">⚖️</span><div><b>Dagang sudah deal:</b> Baru ambil kartu dari tangan setelah kedua pihak setuju.</div></div>
+          <div class="card-list-item"><span class="ic">🌾</span><div><b>Panen wajib tuntas:</b> Tidak bisa panen sebagian — lapangan harus dikosongkan semua.</div></div>
+          <div class="card-list-item"><span class="ic">🛡️</span><div><b>Lapangan tunggal:</b> 1 kartu di lapangan tidak bisa dipanen jika ada lapangan lain yang lebih banyak.</div></div>
+        </div>
+        <br>
+        <div class="box" style="--box-color:var(--moss)">
+          📋 Kartu di tangan <em>tidak dihitung</em> saat akhir permainan. Hanya badge di tumpukan badgemu yang dihitung!
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 9: AKHIR GAME -->
+    <div class="card slide-akhir">
+      <div class="card-num">Slide 09</div>
+      <div class="card-badge">🥇</div>
+      <div class="card-title">Akhir Permainan</div>
+      <div class="card-subtitle">Siapa yang Menang?</div>
+      <div class="card-body">
+        <div class="box" style="--box-color:var(--rust);margin-bottom:12px;">
+          🏁 <b>Permainan berakhir</b> ketika draw pile habis untuk <em>ketiga kalinya</em>. Jika terjadi saat Fase 2, selesaikan Fase 2 dan 3 terlebih dahulu.
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-n" style="background:var(--amber);color:var(--brown)">1</div>
+            <div class="step-t"><b>Panen semua lapangan</b> yang masih ada kartu — hitung badge sesuai activitymeter.</div>
+          </div>
+          <div class="step">
+            <div class="step-n" style="background:var(--amber);color:var(--brown)">2</div>
+            <div class="step-t"><b>Hitung tumpukan badge</b> masing-masing pemain. Setiap kartu = 1 badge.</div>
+          </div>
+          <div class="step">
+            <div class="step-n" style="background:var(--amber);color:var(--brown)">3</div>
+            <div class="step-t"><b>Pemain dengan badge terbanyak menang!</b> 🦝🏆</div>
+          </div>
+        </div>
+        <br>
+        <div class="box" style="--box-color:var(--forest)">
+          🤝 <b>Seri:</b> Jika ada yang seri, pemain yang duduk paling jauh dari pemain pertama (searah jarum jam) yang menang.
+        </div>
+        <br>
+        <p style="text-align:center;font-size:.82rem;color:#7a5c3a;font-weight:700;">
+          Geser ke kiri untuk kembali ke awal 🦝
+        </p>
+      </div>
+    </div>
+
+  </div><!-- /track -->
+</div><!-- /viewport -->
+
+<div class="nav-dots" id="dots"></div>
+<div class="arrows">
+  <button class="arr-btn" id="prev" aria-label="Sebelumnya">←</button>
+  <button class="arr-btn" id="next" aria-label="Berikutnya">→</button>
+</div>
+
+<script>
+(function(){
+  const track    = document.getElementById('track');
+  const viewport = document.getElementById('viewport');
+  const dotsEl   = document.getElementById('dots');
+  const prevBtn  = document.getElementById('prev');
+  const nextBtn  = document.getElementById('next');
+  const prog     = document.getElementById('prog');
+  const progLbl  = document.getElementById('prog-label');
+
+  const slides  = track.querySelectorAll('.card');
+  const N       = slides.length;
+  let current   = 0;
+  let startX    = 0;
+  let isDragging= false;
+  let dragDeltaX= 0;
+
+  /* build dots */
+  for(let i=0;i<N;i++){
+    const b = document.createElement('button');
+    b.className='dot-btn';
+    b.setAttribute('aria-label','Slide '+(i+1));
+    b.addEventListener('click',()=>goTo(i));
+    dotsEl.appendChild(b);
+  }
+
+  function getCardWidth(){
+    return slides[0].getBoundingClientRect().width + 16; // gap=16
+  }
+
+  function goTo(idx){
+    current = Math.max(0, Math.min(N-1, idx));
+    const cw = getCardWidth();
+    track.style.transition = 'transform .38s cubic-bezier(.4,0,.2,1)';
+    track.style.transform  = `translateX(-${current * cw}px)`;
+    updateUI();
+  }
+
+  function updateUI(){
+    const dots = dotsEl.querySelectorAll('.dot-btn');
+    dots.forEach((d,i)=>d.classList.toggle('active', i===current));
+    prevBtn.disabled = current===0;
+    nextBtn.disabled = current===N-1;
+    const pct = ((current)/(N-1))*100;
+    prog.style.width = pct+'%';
+    progLbl.textContent = (current+1)+' / '+N;
+  }
+
+  prevBtn.addEventListener('click',()=>goTo(current-1));
+  nextBtn.addEventListener('click',()=>goTo(current+1));
+
+  /* keyboard */
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight') goTo(current+1);
+    if(e.key==='ArrowLeft')  goTo(current-1);
+  });
+
+  /* pointer/touch drag */
+  function onPointerDown(e){
+    isDragging = true;
+    startX = e.type==='touchstart' ? e.touches[0].clientX : e.clientX;
+    dragDeltaX = 0;
+    track.style.transition = 'none';
+  }
+
+  function onPointerMove(e){
+    if(!isDragging) return;
+    const x = e.type==='touchmove' ? e.touches[0].clientX : e.clientX;
+    dragDeltaX = x - startX;
+    const cw = getCardWidth();
+    const base = -(current * cw);
+    track.style.transform = `translateX(${base + dragDeltaX}px)`;
+  }
+
+  function onPointerUp(){
+    if(!isDragging) return;
+    isDragging = false;
+    const threshold = 60;
+    if(dragDeltaX < -threshold)      goTo(current+1);
+    else if(dragDeltaX > threshold)  goTo(current-1);
+    else                             goTo(current); // snap back
+  }
+
+  viewport.addEventListener('mousedown',  onPointerDown);
+  viewport.addEventListener('mousemove',  onPointerMove);
+  viewport.addEventListener('mouseup',    onPointerUp);
+  viewport.addEventListener('mouseleave', onPointerUp);
+
+  viewport.addEventListener('touchstart', onPointerDown, {passive:true});
+  viewport.addEventListener('touchmove',  onPointerMove, {passive:true});
+  viewport.addEventListener('touchend',   onPointerUp);
+
+  /* init */
+  track.style.transition = 'none';
+  track.style.transform = 'translateX(0)';
+  goTo(0);
+
+  /* recalc on resize */
+  window.addEventListener('resize', ()=> goTo(current));
+})();
+</script>
+</body>
+</html>
