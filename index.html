@@ -86,7 +86,7 @@
     transition: transform .35s cubic-bezier(.4,0,.2,1);
   }
 
-  /* CARD DESIGN */
+  /* CARD DESIGN (FONT LEBIH BESAR & LEGA) */
   .card {
     flex: 0 0 var(--card-w);
     background: var(--cream);
@@ -98,7 +98,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 20px;
+    gap: 22px;
   }
 
   .card-num {
@@ -117,15 +117,16 @@
 
   .card-title {
     font-family: 'Fredoka One', cursive;
-    font-size: clamp(1.6rem, 6vw, 2.1rem);
+    font-size: clamp(1.6rem, 6vw, 2.2rem);
     color: var(--forest);
     line-height: 1.15;
     margin-top: 15px;
   }
 
+  /* UKURAN FONT UTAMA MAKIN BESAR */
   .card-body {
-    font-size: 1.1rem; 
-    line-height: 1.6;
+    font-size: 1.15rem; 
+    line-height: 1.65;
     color: #3a2710;
     font-weight: 600;
   }
@@ -133,7 +134,7 @@
   .card-body em { font-style: normal; color: var(--rust); font-weight: 800; }
 
   /* STEPS & LISTS */
-  .steps { display: flex; flex-direction: column; gap: 14px; }
+  .steps { display: flex; flex-direction: column; gap: 16px; }
   .step  { display: flex; gap: 14px; align-items: flex-start; }
   .step-n {
     flex: 0 0 32px; height: 32px;
@@ -145,16 +146,16 @@
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
   }
-  .step-t { font-size: 1.05rem; line-height: 1.5; font-weight: 600; }
+  .step-t { font-size: 1.1rem; line-height: 1.5; font-weight: 600; }
 
   /* HIGHLIGHT BOX */
   .box {
     background: #f0ebe1;
     border-left: 5px solid var(--box-color, var(--amber));
     border-radius: 0 16px 16px 0;
-    padding: 14px 18px;
-    font-size: 1rem;
-    line-height: 1.5;
+    padding: 16px 20px;
+    font-size: 1.05rem;
+    line-height: 1.55;
     font-weight: 600;
   }
 
@@ -198,7 +199,7 @@
   /* MINI TABLE */
   .mini-table {
     width: 100%;
-    font-size: 1rem;
+    font-size: 1.05rem;
     margin-top: 5px;
     text-align: left;
     border-collapse: collapse;
@@ -207,7 +208,7 @@
   .mini-table td { padding: 8px 0; border-bottom: 1px solid #e6dfd3; font-weight: 600;}
 
   @media (max-width: 440px) {
-    .card { padding: 26px 22px; gap: 16px; min-height: 440px;}
+    .card { padding: 26px 22px; gap: 18px; min-height: 440px;}
     .card-title { margin-top: 10px; }
   }
 </style>
@@ -249,7 +250,7 @@
         <div class="steps">
           <div class="step">
             <div class="step-n">1</div>
-            <div class="step-t">Setiap pemain secara virtual memiliki <b>2 kolom aktivitas</b> (berlaku sama untuk semua jumlah 3-7 pemain).</div>
+            <div class="step-t">Setiap pemain secara virtual memiliki <b>2 kolom aktivitas</b> (berlaku sama untuk 3-7 pemain).</div>
           </div>
           <div class="step">
             <div class="step-n">2</div>
@@ -268,7 +269,7 @@
       <div class="card-badge">⚠️</div>
       <div class="card-title">Aturan Mutlak!</div>
       <div class="card-body">
-        <div class="box" style="--box-color: var(--rust); font-size: 1.1rem;">
+        <div class="box" style="--box-color: var(--rust); font-size: 1.15rem;">
           Urutan kartu di tanganmu <b>TIDAK BOLEH diubah atau diacak</b> sepanjang permainan!<br><br>
           Kartu baru yang didapatkan harus selalu diletakkan di posisi paling belakang.
         </div>
@@ -306,13 +307,9 @@
       <div class="card-badge">🏕️</div>
       <div class="card-title">Kolom Aktivitas</div>
       <div class="card-body">
-        • Kamu hanya memiliki maksimal <b>2 kolom aktivitas aktif</b>.<br>
-        • 1 Kolom hanya boleh diisi oleh <b>1 jenis aktivitas</b>.<br>
-        • Kartu ditaruh menumpuk ke atas.<br>
-        • Jika ingin memasang jenis baru saat kedua kolom sudah terisi, kamu <em>wajib melakukan Panen</em> terlebih dahulu.<br><br>
-        <div class="box" style="--box-color: var(--forest); font-size: .95rem;">
-          🛡️ <b>Proteksi:</b> Kolom aktivitas yang baru berisi 1 kartu tidak boleh dipanen paksa jika kamu memiliki kolom lain yang isinya lebih banyak.
-        </div>
+        • Kamu hanya memiliki maksimal <b>2 kolom aktivitas aktif</b>.<br><br>
+        • 1 Kolom hanya boleh diisi oleh <b>1 jenis aktivitas</b> (kartu ditumpuk ke atas).<br><br>
+        • Jika ingin memasang jenis baru saat kedua kolom sudah penuh, kamu <b>bebas memanen kapan saja</b> kolom mana pun untuk mengosongkannya.
       </div>
     </div>
 
@@ -321,7 +318,7 @@
       <div class="card-badge">🏆</div>
       <div class="card-title">Panen & Skor</div>
       <div class="card-body">
-        Kamu bisa panen kapan saja (bahkan saat giliran orang lain).
+        Kamu bisa panen kapan saja (bahkan saat giliran orang lain) untuk mendapatkan badge reward.
         <table class="mini-table">
           <tr><th>Jenis Aktivitas</th><th>Total Kartu</th><th>Badge Max</th></tr>
           <tr><td>Foto Satwa / Patroli</td><td>22 / 20 kartu</td><td>4 Badge</td></tr>
@@ -329,7 +326,7 @@
           <tr><td>Riset / Edukasi / Donasi</td><td>12 / 10 / 8</td><td>4 Badge</td></tr>
           <tr><td>Adopsi Simbolik</td><td>6 kartu saja</td><td>4 Badge</td></tr>
         </table>
-        <p style="font-size: .9rem; margin-top: 10px; color: var(--rust)">
+        <p style="font-size: .95rem; margin-top: 12px; color: var(--rust)">
           *Cek indikator <i>Activitymeter</i> pada kartu paling atas saat panen untuk menentukan jumlah badge yang didapat.
         </p>
       </div>
@@ -345,7 +342,7 @@
         • Hitung kartu di tumpukan Badge (1 kartu = 1 poin).<br>
         • Pemain dengan <b>Badge terbanyak menang!</b>
         <br><br>
-        <div class="box" style="--box-color: var(--amber); font-size: .95rem;">
+        <div class="box" style="--box-color: var(--amber); font-size: 1rem;">
           🤝 <b>Seri?</b> Pemain dengan posisi duduk paling jauh dari Starting Player yang menang.
         </div>
       </div>
