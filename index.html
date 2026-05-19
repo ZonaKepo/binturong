@@ -86,7 +86,7 @@
     transition: transform .35s cubic-bezier(.4,0,.2,1);
   }
 
-  /* CARD REDESIGN (FOKUS KETERBACAAN) */
+  /* CARD DESIGN */
   .card {
     flex: 0 0 var(--card-w);
     background: var(--cream);
@@ -97,7 +97,7 @@
     min-height: 460px;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Konten otomatis center vertikal jika teks sedikit */
+    justify-content: center;
     gap: 20px;
   }
 
@@ -123,7 +123,6 @@
     margin-top: 15px;
   }
 
-  /* UKURAN FONT UTAMA LEBIH BESAR */
   .card-body {
     font-size: 1.1rem; 
     line-height: 1.6;
@@ -133,7 +132,7 @@
   .card-body b { color: var(--forest); font-weight: 800; }
   .card-body em { font-style: normal; color: var(--rust); font-weight: 800; }
 
-  /* STEPS & LISTS REFORMAT */
+  /* STEPS & LISTS */
   .steps { display: flex; flex-direction: column; gap: 14px; }
   .step  { display: flex; gap: 14px; align-items: flex-start; }
   .step-n {
@@ -250,7 +249,7 @@
         <div class="steps">
           <div class="step">
             <div class="step-n">1</div>
-            <div class="step-t">Bagi <b>Papan Lapangan</b> ke tiap pemain (Sisi 3 kolom untuk 3 pemain, sisi 2 kolom untuk 4-7 pemain).</div>
+            <div class="step-t">Setiap pemain secara virtual memiliki <b>2 kolom aktivitas</b> (berlaku sama untuk semua jumlah 3-7 pemain).</div>
           </div>
           <div class="step">
             <div class="step-n">2</div>
@@ -284,7 +283,7 @@
         <div class="steps">
           <div class="step">
             <div class="step-n">1</div>
-            <div class="step-t"><b>Koleksi Tangan:</b> Wajib pasang kartu terdepan di tangan ke Lapanganmu. (Boleh tambah 1 kartu lagi).</div>
+            <div class="step-t"><b>Koleksi Tangan:</b> Wajib pasang kartu terdepan di tangan ke kolom aktivitasmu. (Boleh tambah 1 kartu lagi).</div>
           </div>
           <div class="step">
             <div class="step-n">2</div>
@@ -292,7 +291,7 @@
           </div>
           <div class="step">
             <div class="step-n">3</div>
-            <div class="step-t"><b>Koleksi Dagang:</b> Pasang semua kartu hasil barter langsung ke Lapangan.</div>
+            <div class="step-t"><b>Koleksi Dagang:</b> Pasang semua kartu hasil barter langsung ke kolom aktivitas.</div>
           </div>
           <div class="step">
             <div class="step-n">4</div>
@@ -305,13 +304,14 @@
     <div class="card">
       <div class="card-num">05 / 07</div>
       <div class="card-badge">🏕️</div>
-      <div class="card-title">Aturan Lapangan</div>
+      <div class="card-title">Kolom Aktivitas</div>
       <div class="card-body">
-        • 1 Lapangan hanya boleh diisi <b>1 jenis aktivitas</b>.<br>
+        • Kamu hanya memiliki maksimal <b>2 kolom aktivitas aktif</b>.<br>
+        • 1 Kolom hanya boleh diisi oleh <b>1 jenis aktivitas</b>.<br>
         • Kartu ditaruh menumpuk ke atas.<br>
-        • Jika ingin memasang jenis baru tapi lapangan penuh, kamu <em>wajib melakukan Panen</em> terlebih dahulu.<br><br>
+        • Jika ingin memasang jenis baru saat kedua kolom sudah terisi, kamu <em>wajib melakukan Panen</em> terlebih dahulu.<br><br>
         <div class="box" style="--box-color: var(--forest); font-size: .95rem;">
-          🛡️ <b>Proteksi:</b> Lapangan berisi 1 kartu tidak boleh dipanen paksa jika kamu memiliki lapangan lain yang isinya lebih banyak.
+          🛡️ <b>Proteksi:</b> Kolom aktivitas yang baru berisi 1 kartu tidak boleh dipanen paksa jika kamu memiliki kolom lain yang isinya lebih banyak.
         </div>
       </div>
     </div>
@@ -341,7 +341,7 @@
       <div class="card-title">Akhir Permainan</div>
       <div class="card-body">
         Permainan selesai saat deck <b>Draw Pile habis untuk yang ketiga kalinya</b>.<br><br>
-        • Semua pemain memanen sisa kartu di lapangan.<br>
+        • Semua pemain memanen sisa kartu di kolom aktivitas.<br>
         • Hitung kartu di tumpukan Badge (1 kartu = 1 poin).<br>
         • Pemain dengan <b>Badge terbanyak menang!</b>
         <br><br>
