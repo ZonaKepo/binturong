@@ -9,8 +9,8 @@
 
 <style>
 :root{
-  --brown:#5C3A1E;
-  --amber:#E8A020;
+  --brown:#18392B;
+  --amber:#A7E163;
   --cream:#FFF8ED;
   --forest:#2D6A4F;
   --moss:#52B788;
@@ -33,7 +33,7 @@ body{
 
 body{
   background:
-    radial-gradient(ellipse 90% 60% at 50% 0%, #7a4e28 0%, transparent 70%),
+    radial-gradient(ellipse 90% 60% at 50% 0%, #24523e 0%, transparent 70%),
     var(--brown);
 
   font-family:'Nunito',sans-serif;
@@ -59,8 +59,10 @@ header{
 header h1{
   font-family:'Fredoka One',cursive;
   font-size:clamp(2rem,8vw,3.5rem);
+
   color:var(--amber);
-  text-shadow:3px 4px 0 var(--brown);
+
+  text-shadow:3px 4px 0 rgba(0,0,0,.25);
   letter-spacing:2px;
 }
 
@@ -156,7 +158,6 @@ header h1{
   position:relative;
 }
 
-/* hidden scrollbar */
 .card::-webkit-scrollbar{
   width:0;
   height:0;
@@ -337,7 +338,7 @@ header h1{
   border:none;
   border-radius:50%;
 
-  background:rgba(255,255,255,.28);
+  background:rgba(255,255,255,.18);
 
   transition:.2s;
 }
@@ -597,7 +598,7 @@ header h1{
 
             <br><br>
 
-            Angka <b>Activitymeter</b>
+            Tingkatan angka kartu di sebelah kiri
             menunjukkan jumlah kartu yang
             dibutuhkan untuk mendapatkan badge.
 
@@ -625,7 +626,8 @@ header h1{
           <div class="card-body">
 
             Permainan selesai saat
-            <b>Draw Pile habis 3 kali</b>.
+            <b>tumpukan kartu di tengah
+            sudah 2 kali diacak</b>.
 
             <br><br>
 
@@ -673,7 +675,6 @@ header h1{
   let deltaX = 0;
   let dragging = false;
 
-  // create dots
   slides.forEach((_,i)=>{
     const dot = document.createElement('button');
     dot.className = 'dot-btn';
@@ -759,7 +760,6 @@ header h1{
     }
   }
 
-  // mouse
   viewport.addEventListener('mousedown', e=>{
     pointerDown(e.clientX);
   });
@@ -772,7 +772,6 @@ header h1{
 
   viewport.addEventListener('mouseleave', pointerUp);
 
-  // touch
   viewport.addEventListener('touchstart', e=>{
     pointerDown(e.touches[0].clientX);
   }, {passive:true});
@@ -783,7 +782,6 @@ header h1{
 
   viewport.addEventListener('touchend', pointerUp);
 
-  // keyboard
   document.addEventListener('keydown', e=>{
 
     if(e.key === 'ArrowRight'){
