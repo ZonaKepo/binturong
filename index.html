@@ -61,7 +61,7 @@
   .progress-fill {
     height: 100%;
     background: linear-gradient(90deg, var(--moss), var(--amber));
-    transition: width .3s ease;
+    transition: width .35s cubic-bezier(.4,0,.2,1);
   }
   .progress-label {
     color: var(--cream);
@@ -86,7 +86,7 @@
     transition: transform .35s cubic-bezier(.4,0,.2,1);
   }
 
-  /* CARD DESIGN (FONT LEBIH BESAR & LEGA) */
+  /* CARD DESIGN (FONT MAKIN BESAR & SANGAT LEGA) */
   .card {
     flex: 0 0 var(--card-w);
     background: var(--cream);
@@ -123,9 +123,8 @@
     margin-top: 15px;
   }
 
-  /* UKURAN FONT UTAMA MAKIN BESAR */
   .card-body {
-    font-size: 1.15rem; 
+    font-size: 1.18rem; 
     line-height: 1.65;
     color: #3a2710;
     font-weight: 600;
@@ -146,7 +145,7 @@
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
   }
-  .step-t { font-size: 1.1rem; line-height: 1.5; font-weight: 600; }
+  .step-t { font-size: 1.12rem; line-height: 1.55; font-weight: 600; }
 
   /* HIGHLIGHT BOX */
   .box {
@@ -154,7 +153,7 @@
     border-left: 5px solid var(--box-color, var(--amber));
     border-radius: 0 16px 16px 0;
     padding: 16px 20px;
-    font-size: 1.05rem;
+    font-size: 1.1rem;
     line-height: 1.55;
     font-weight: 600;
   }
@@ -195,17 +194,6 @@
     display: flex; align-items: center; justify-content: center;
   }
   .arr-btn:disabled { opacity: .2; }
-
-  /* MINI TABLE */
-  .mini-table {
-    width: 100%;
-    font-size: 1.05rem;
-    margin-top: 5px;
-    text-align: left;
-    border-collapse: collapse;
-  }
-  .mini-table th { padding: 6px 0; border-bottom: 2px solid var(--forest); font-weight: 800; color: var(--forest);}
-  .mini-table td { padding: 8px 0; border-bottom: 1px solid #e6dfd3; font-weight: 600;}
 
   @media (max-width: 440px) {
     .card { padding: 26px 22px; gap: 18px; min-height: 440px;}
@@ -269,7 +257,7 @@
       <div class="card-badge">⚠️</div>
       <div class="card-title">Aturan Mutlak!</div>
       <div class="card-body">
-        <div class="box" style="--box-color: var(--rust); font-size: 1.15rem;">
+        <div class="box" style="--box-color: var(--rust); font-size: 1.18rem;">
           Urutan kartu di tanganmu <b>TIDAK BOLEH diubah atau diacak</b> sepanjang permainan!<br><br>
           Kartu baru yang didapatkan harus selalu diletakkan di posisi paling belakang.
         </div>
@@ -318,17 +306,9 @@
       <div class="card-badge">🏆</div>
       <div class="card-title">Panen & Skor</div>
       <div class="card-body">
-        Kamu bisa panen kapan saja (bahkan saat giliran orang lain) untuk mendapatkan badge reward.
-        <table class="mini-table">
-          <tr><th>Jenis Aktivitas</th><th>Total Kartu</th><th>Badge Max</th></tr>
-          <tr><td>Foto Satwa / Patroli</td><td>22 / 20 kartu</td><td>4 Badge</td></tr>
-          <tr><td>Kamp / Sosmed / Pohon</td><td>18 / 16 / 14</td><td>4 Badge</td></tr>
-          <tr><td>Riset / Edukasi / Donasi</td><td>12 / 10 / 8</td><td>4 Badge</td></tr>
-          <tr><td>Adopsi Simbolik</td><td>6 kartu saja</td><td>4 Badge</td></tr>
-        </table>
-        <p style="font-size: .95rem; margin-top: 12px; color: var(--rust)">
-          *Cek indikator <i>Activitymeter</i> pada kartu paling atas saat panen untuk menentukan jumlah badge yang didapat.
-        </p>
+        Kamu bisa memanen kartu di kolom aktivitas kapan saja (bahkan saat giliran orang lain) untuk mendapatkan reward.<br><br>
+        Setiap kartu memiliki <b>angka penunjuk jumlah kartu</b> (*Activitymeter*) di bagian bawahnya. Angka ini menunjukkan berapa banyak jumlah kartu sejenis yang harus kamu kumpulkan untuk mendapatkan **1 s/d maksimal 4 badge reward**.<br><br>
+        Saat panen, balik kartu sesuai jumlah badge yang didapat ke tumpukan skormu, lalu buang sisanya ke *discard pile*.
       </div>
     </div>
 
@@ -342,7 +322,7 @@
         • Hitung kartu di tumpukan Badge (1 kartu = 1 poin).<br>
         • Pemain dengan <b>Badge terbanyak menang!</b>
         <br><br>
-        <div class="box" style="--box-color: var(--amber); font-size: 1rem;">
+        <div class="box" style="--box-color: var(--amber); font-size: 1.05rem;">
           🤝 <b>Seri?</b> Pemain dengan posisi duduk paling jauh dari Starting Player yang menang.
         </div>
       </div>
