@@ -1,816 +1,576 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>BINTURONG — Cara Bermain</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
-
-<style>
-:root{
-  --brown:#18392B;
-  --amber:#A7E163;
-  --cream:#FFF8ED;
-  --forest:#2D6A4F;
-  --moss:#52B788;
-  --rust:#C44B1B;
-}
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-html,
-body{
-  width:100%;
-  height:100%;
-  overflow:hidden;
-  touch-action:pan-y;
-}
-
-body{
-  background:
-    radial-gradient(ellipse 90% 60% at 50% 0%, #24523e 0%, transparent 70%),
-    var(--brown);
-
-  font-family:'Nunito',sans-serif;
-  color:var(--brown);
-
-  display:flex;
-  flex-direction:column;
-}
-
-/* ===== HEADER ===== */
-
-header{
-  flex:0 0 auto;
-  width:100%;
-  padding:
-    max(14px, env(safe-area-inset-top))
-    18px
-    10px;
-
-  text-align:center;
-}
-
-header h1{
-  font-family:'Fredoka One',cursive;
-  font-size:clamp(2rem,8vw,3.5rem);
-
-  color:var(--amber);
-
-  text-shadow:3px 4px 0 rgba(0,0,0,.25);
-  letter-spacing:2px;
-}
-
-/* ===== PROGRESS ===== */
-
-.progress-wrap{
-  flex:0 0 auto;
-
-  width:min(92vw, 520px);
-  margin:0 auto 10px;
-
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.progress-bar{
-  flex:1;
-  height:10px;
-  background:rgba(255,255,255,.15);
-  border-radius:999px;
-  overflow:hidden;
-}
-
-.progress-fill{
-  width:0%;
-  height:100%;
-  border-radius:999px;
-
-  background:linear-gradient(
-    90deg,
-    var(--moss),
-    var(--amber)
-  );
-
-  transition:width .3s ease;
-}
-
-.progress-label{
-  color:var(--cream);
-  font-weight:900;
-  font-size:.9rem;
-}
-
-/* ===== MAIN SLIDER ===== */
-
-.slider-shell{
-  flex:1;
-  width:100%;
-  overflow:hidden;
-  position:relative;
-}
-
-.slider-viewport{
-  width:100%;
-  height:100%;
-  overflow:hidden;
-
-  cursor:grab;
-  user-select:none;
-  -webkit-user-select:none;
-}
-
-.slider-viewport:active{
-  cursor:grabbing;
-}
-
-.slider-track{
-  height:100%;
-  display:flex;
-  transition:transform .35s cubic-bezier(.4,0,.2,1);
-}
-
-/* ===== FULLSCREEN CARD ===== */
-
-.card{
-  width:100vw;
-  height:100%;
-  flex:0 0 100vw;
-
-  padding:
-    70px
-    22px
-    calc(30px + env(safe-area-inset-bottom));
-
-  overflow-y:auto;
-
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  gap:22px;
-
-  position:relative;
-}
-
-.card::-webkit-scrollbar{
-  width:0;
-  height:0;
-}
-
-.card-inner{
-  width:100%;
-  max-width:520px;
-
-  margin:auto;
-
-  background:var(--cream);
-
-  border-radius:30px;
-
-  padding:34px 26px;
-
-  box-shadow:
-    0 15px 40px rgba(0,0,0,.35);
-
-  position:relative;
-}
-
-/* ===== CARD CONTENT ===== */
-
-.card-num{
-  position:absolute;
-  top:18px;
-  left:24px;
-
-  font-family:'Fredoka One',cursive;
-  font-size:.85rem;
-
-  color:var(--forest);
-  opacity:.35;
-}
-
-.card-emblem{
-  position:absolute;
-  top:16px;
-  right:24px;
-
-  font-size:1.9rem;
-}
-
-.card-title{
-  margin-top:14px;
-
-  font-family:'Fredoka One',cursive;
-
-  font-size:clamp(1.7rem, 7vw, 2.3rem);
-
-  color:var(--forest);
-
-  line-height:1.15;
-}
-
-.card-body{
-  font-size:1.16rem;
-  line-height:1.7;
-  font-weight:700;
-
-  color:#3c2812;
-}
-
-.card-body b{
-  color:var(--forest);
-}
-
-.card-body em{
-  font-style:normal;
-  color:var(--rust);
-  font-weight:900;
-}
-
-/* ===== STEPS ===== */
-
-.steps{
-  display:flex;
-  flex-direction:column;
-  gap:18px;
-}
-
-.step{
-  display:flex;
-  gap:14px;
-  align-items:flex-start;
-}
-
-.step-n{
-  width:34px;
-  height:34px;
-  flex:0 0 34px;
-
-  border-radius:50%;
-
-  background:var(--forest);
-  color:var(--cream);
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  font-weight:900;
-}
-
-.step-t{
-  font-size:1.08rem;
-  line-height:1.6;
-}
-
-/* ===== BOX ===== */
-
-.box{
-  background:#f0ebe1;
-
-  border-left:5px solid var(--box-color, var(--amber));
-
-  border-radius:0 16px 16px 0;
-
-  padding:16px 18px;
-
-  font-size:1.08rem;
-  line-height:1.6;
-  font-weight:700;
-}
-
-/* ===== PILLS ===== */
-
-.pills{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-top:14px;
-}
-
-.pill{
-  padding:7px 15px;
-
-  border-radius:999px;
-
-  font-size:.88rem;
-  font-weight:900;
-
-  background:var(--forest);
-  color:var(--cream);
-}
-
-.pill.amber{
-  background:var(--amber);
-  color:var(--brown);
-}
-
-.pill.moss{
-  background:var(--moss);
-}
-
-/* ===== DOTS ===== */
-
-.nav-dots{
-  position:fixed;
-
-  left:50%;
-  bottom:14px;
-
-  transform:translateX(-50%);
-
-  display:flex;
-  gap:8px;
-
-  z-index:100;
-}
-
-.dot-btn{
-  width:9px;
-  height:9px;
-
-  border:none;
-  border-radius:50%;
-
-  background:rgba(255,255,255,.18);
-
-  transition:.2s;
-}
-
-.dot-btn.active{
-  background:var(--amber);
-  transform:scale(1.45);
-}
-
-/* ===== DESKTOP ===== */
-
-@media (min-width:768px){
-
-  .card{
-    padding-top:20px;
-  }
-
-  .card-inner{
-    max-width:620px;
-  }
-
-  .card-body{
-    font-size:1.22rem;
-  }
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>BINTURONG — Cara Bermain</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --brown: #18392B;
+      --amber: #A7E163;
+      --cream: #FFF8ED;
+      --forest: #2D6A4F;
+      --moss: #52B788;
+      --rust: #C44B1B;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      touch-action: pan-y;
+    }
+
+    body {
+      background:
+        radial-gradient(ellipse 90% 60% at 50% 0%, #24523e 0%, transparent 70%),
+        var(--brown);
+      font-family: 'Nunito', sans-serif;
+      color: var(--brown);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      flex: 0 0 auto;
+      width: 100%;
+      padding: max(14px, env(safe-area-inset-top)) 18px 10px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(2rem, 8vw, 3.5rem);
+      color: var(--amber);
+      text-shadow: 3px 4px 0 rgba(0, 0, 0, .25);
+      letter-spacing: 2px;
+    }
+
+    /* ===== PROGRESS ===== */
+    .progress-wrap {
+      flex: 0 0 auto;
+      width: min(92vw, 520px);
+      margin: 0 auto 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .progress-bar {
+      flex: 1;
+      height: 10px;
+      background: rgba(255, 255, 255, .15);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--moss), var(--amber));
+      transition: width .3s ease;
+    }
+
+    .progress-label {
+      color: var(--cream);
+      font-weight: 900;
+      font-size: .9rem;
+    }
+
+    /* ===== MAIN SLIDER ===== */
+    .slider-shell {
+      flex: 1;
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .slider-viewport {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      cursor: grab;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .slider-viewport:active {
+      cursor: grabbing;
+    }
+
+    .slider-track {
+      height: 100%;
+      display: flex;
+      transition: transform .35s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    /* ===== FULLSCREEN CARD ===== */
+    .card {
+      width: 100vw;
+      height: 100%;
+      flex: 0 0 100vw;
+      padding: 70px 22px calc(30px + env(safe-area-inset-bottom));
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 22px;
+      position: relative;
+    }
+
+    .card::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+
+    .card-inner {
+      width: 100%;
+      max-width: 520px;
+      margin: auto;
+      background: var(--cream);
+      border-radius: 30px;
+      padding: 34px 26px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, .35);
+      position: relative;
+    }
+
+    /* ===== CARD CONTENT ===== */
+    .card-num {
+      position: absolute;
+      top: 18px;
+      left: 24px;
+      font-family: 'Fredoka One', cursive;
+      font-size: .85rem;
+      color: var(--forest);
+      opacity: .35;
+    }
+
+    .card-tiket {
+      position: absolute;
+      top: 16px;
+      right: 24px;
+      font-size: 1.9rem;
+    }
+
+    .card-title {
+      margin-top: 14px;
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(1.7rem, 7vw, 2.3rem);
+      color: var(--forest);
+      line-height: 1.15;
+    }
+
+    .card-body {
+      font-size: 1.16rem;
+      line-height: 1.7;
+      font-weight: 700;
+      color: #3c2812;
+    }
+
+    .card-body b {
+      color: var(--forest);
+    }
+
+    .card-body em {
+      font-style: normal;
+      color: var(--rust);
+      font-weight: 900;
+    }
+
+    /* ===== STEPS ===== */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .step {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .step-n {
+      width: 34px;
+      height: 34px;
+      flex: 0 0 34px;
+      border-radius: 50%;
+      background: var(--forest);
+      color: var(--cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+    }
+
+    .step-t {
+      font-size: 1.08rem;
+      line-height: 1.6;
+    }
+
+    /* ===== BOX ===== */
+    .box {
+      background: #f0ebe1;
+      border-left: 5px solid var(--box-color, var(--amber));
+      border-radius: 0 16px 16px 0;
+      padding: 16px 18px;
+      font-size: 1.08rem;
+      line-height: 1.6;
+      font-weight: 700;
+    }
+
+    /* ===== PILLS ===== */
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .pill {
+      padding: 7px 15px;
+      border-radius: 999px;
+      font-size: .88rem;
+      font-weight: 900;
+      background: var(--forest);
+      color: var(--cream);
+    }
+
+    .pill.amber {
+      background: var(--amber);
+      color: var(--brown);
+    }
+
+    .pill.moss {
+      background: var(--moss);
+    }
+
+    /* ===== DOTS ===== */
+    .nav-dots {
+      position: fixed;
+      left: 50%;
+      bottom: 14px;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 100;
+    }
+
+    .dot-btn {
+      width: 9px;
+      height: 9px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .18);
+      transition: .2s;
+    }
+
+    .dot-btn.active {
+      background: var(--amber);
+      transform: scale(1.45);
+    }
+
+    /* ===== DESKTOP ===== */
+    @media (min-width: 768px) {
+      .card {
+        padding-top: 20px;
+      }
+      .card-inner {
+        max-width: 620px;
+      }
+      .card-body {
+        font-size: 1.22rem;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<header>
-  <h1>BINTURONG</h1>
-</header>
-
-<div class="progress-wrap">
-  <div class="progress-bar">
-    <div class="progress-fill" id="prog"></div>
-  </div>
-
-  <div class="progress-label" id="prog-label">
-    1 / 7
-  </div>
-</div>
-
-<div class="slider-shell">
-
-  <div class="slider-viewport" id="viewport">
-
-    <div class="slider-track" id="track">
-
-      <!-- CARD 1 -->
-      <section class="card">
-        <div class="card-inner">
-
-          <div class="card-num">01 / 07</div>
-          <div class="card-emblem">🦝</div>
-
-          <div class="card-title">
-            Tentang Game
-          </div>
-
-          <div class="card-body">
-            Kumpulkan kartu <b>Aktivitas Binturong</b>
-            sejenis untuk mendapatkan skor tertinggi
-            berupa <b>Emblem Bordir</b>.
-
-            <br><br>
-
-            Pemain dengan koleksi emblem terbanyak di
-            akhir permainan keluar sebagai pemenang!
-
-            <div class="pills">
-              <span class="pill">3–7 Pemain</span>
-              <span class="pill amber">Usia 10+</span>
-              <span class="pill moss">±45 Menit</span>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- CARD 2 -->
-      <section class="card">
-        <div class="card-inner">
-
-          <div class="card-num">02 / 07</div>
-          <div class="card-emblem">🎲</div>
-
-          <div class="card-title">
-            Persiapan Komponen
-          </div>
-
-          <div class="card-body">
-
-            <div class="steps">
-
-              <div class="step">
-                <div class="step-n">1</div>
-                <div class="step-t">
-                  Setiap pemain memiliki
-                  <b>2 + 1 kolom aktivitas</b>.
-                </div>
-              </div>
-
-              <div class="step">
-                <div class="step-n">2</div>
-                <div class="step-t">
-                  Kocok deck lalu bagikan
-                  <b>5 kartu</b>.
-                </div>
-              </div>
-
-              <div class="step">
-                <div class="step-n">3</div>
-                <div class="step-t">
-                  Sisa kartu setelah selesai dibagi
-                  menjadi <b>tumpukan kartu
-                  tertutup di tengah</b>.
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-      </section>
-
-      <!-- CARD 3 -->
-      <section class="card">
-        <div class="card-inner">
-
-          <div class="card-num">03 / 07</div>
-          <div class="card-emblem">⚠️</div>
-
-          <div class="card-title">
-            Aturan Mutlak!
-          </div>
-
-          <div class="card-body">
-
-            <div class="box" style="--box-color: var(--rust)">
-              Urutan kartu di tanganmu
-              <b>TIDAK BOLEH diubah</b>
-              sepanjang permainan.
-
-              <br><br>
-
-              Kartu terbaru yang diambil selalu masuk ke
-              posisi paling belakang.
-            </div>
-
-          </div>
-
-        </div>
-      </section>
-
-      <!-- CARD 4 -->
-      <section class="card">
-        <div class="card-inner">
-
-          <div class="card-num">04 / 07</div>
-          <div class="card-emblem">🔄</div>
-
-          <div class="card-title">
-            4 Fase Turn
-          </div>
-
-          <div class="card-body">
-
-            <div class="steps">
-
-              <div class="step">
-                <div class="step-n">1</div>
-                <div class="step-t">
-                  <b>Koleksi Tangan</b><br>
-                  Selalu pasang kartu terdepan di area koleksi.
-                </div>
-              </div>
-
-              <div class="step">
-                <div class="step-n">2</div>
-                <div class="step-t">
-                  <b>Buka & Dagang</b><br>
-                  Buka 2 kartu tumpukan tengah
-                  lalu ambil atau tawarkan
-                  ke pemain lain.
-                </div>
-              </div>
-
-              <div class="step">
-                <div class="step-n">3</div>
-                <div class="step-t">
-                  <b>Koleksi Dagang</b><br>
-                  Pasang hasil barter ke area koleksi.
-                </div>
-              </div>
-
-              <div class="step">
-                <div class="step-n">4</div>
-                <div class="step-t">
-                  <b>Draw Card</b><br>
-                  Ambil 3 kartu baru.
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-      </section>
-
-      <!-- CARD 5 -->
-      <section class="card">
-        <div class="card-inner">
-
-          <div class="card-num">05 / 07</div>
-          <div class="card-emblem">🏕️</div>
-
-          <div class="card-title">
-            Kolom Aktivitas
-          </div>
-
-          <div class="card-body">
-
-            • Setiap pemain memiliki
-            <b>2 + 1 kolom aktivitas</b>.
-
-            <br><br>
-
-            • Kamu bisa menambah menjadi
-            <b>3 kolom aktivitas</b>
-            dengan membayar
-            <b>2 Emblem Bordir</b>.
-
-            <br><br>
-
-            • Satu kolom hanya untuk
-            <b>1 jenis aktivitas</b>.
-
-            <br><br>
-
-            • Kamu bebas memanen kapan saja
-            untuk membuka slot baru.
-
-          </div>
-
-        </div>
-      </section>
-
-      <!-- CARD 6 -->
-      <section class="card">
-        <div class="card-inner">
-
-          <div class="card-num">06 / 07</div>
-          <div class="card-emblem">🏆</div>
-
-          <div class="card-title">
-            Panen & Skor
-          </div>
-
-          <div class="card-body">
-
-            Kamu bisa memanen kapan saja
-            untuk mendapatkan Emblem.
-
-            <br><br>
-
-            Tingkatan angka kartu di sebelah kiri
-            menunjukkan jumlah kartu yang
-            dibutuhkan untuk mendapatkan Emblem.
-
-            <br><br>
-
-            Saat panen, balik kartu sehingga Emblem terlihat
-            ke tumpukan skor dan buang sisanya.
-
-          </div>
-
-        </div>
-      </section>
-
-      <!-- CARD 7 -->
-      <section class="card">
-        <div class="card-inner">
-
-          <div class="card-num">07 / 07</div>
-          <div class="card-emblem">🥇</div>
-
-          <div class="card-title">
-            Akhir Permainan
-          </div>
-
-          <div class="card-body">
-
-            Permainan selesai saat
-            <b>tumpukan kartu di tengah
-            sudah 2 kali diacak</b>.
-
-            <br><br>
-
-            • Semua pemain memanen sisa kartu.<br>
-            • 1 Emblem = 1 poin.<br>
-            • Emblem Bordir terbanyak menang.
-
-            <br><br>
-
-            <div class="box"
-                 style="--box-color: var(--amber)">
-              🤝 Seri?<br>
-              Pemain yang duduk paling jauh
-              dari Starting Player menang.
-            </div>
-
-          </div>
-
-        </div>
-      </section>
-
+  <header>
+    <h1>BINTURONG</h1>
+  </header>
+
+  <div class="progress-wrap">
+    <div class="progress-bar">
+      <div class="progress-fill" id="prog"></div>
     </div>
-
+    <div class="progress-label" id="prog-label">1 / 7</div>
   </div>
 
-</div>
+  <div class="slider-shell">
+    <div class="slider-viewport" id="viewport">
+      <div class="slider-track" id="track">
 
-<div class="nav-dots" id="dots"></div>
+        <!-- CARD 1 -->
+        <section class="card">
+          <div class="card-inner">
+            <div class="card-num">01 / 07</div>
+            <div class="card-tiket">🦝</div>
+            <div class="card-title">Tentang Game</div>
+            <div class="card-body">
+              Kumpulkan kartu <b>Aktivitas Binturong</b> sejenis untuk mendapatkan skor tertinggi berupa <b>tiket emblem</b>.
+              <br><br>
+              Pemain dengan koleksi tiket terbanyak di akhir permainan keluar sebagai pemenang!
+              <div class="pills">
+                <span class="pill">3–7 Pemain</span>
+                <span class="pill amber">Usia 10+</span>
+                <span class="pill moss">±45 Menit</span>
+              </div>
+            </div>
+          </div>
+        </section>
 
-<script>
-(() => {
+        <!-- CARD 2 -->
+        <section class="card">
+          <div class="card-inner">
+            <div class="card-num">02 / 07</div>
+            <div class="card-tiket">🎲</div>
+            <div class="card-title">Persiapan Komponen</div>
+            <div class="card-body">
+              <div class="steps">
+                <div class="step">
+                  <div class="step-n">1</div>
+                  <div class="step-t">Setiap pemain memiliki <b>2 + 1 kolom aktivitas</b>.</div>
+                </div>
+                <div class="step">
+                  <div class="step-n">2</div>
+                  <div class="step-t">Kocok deck lalu bagikan <b>5 kartu</b>.</div>
+                </div>
+                <div class="step">
+                  <div class="step-n">3</div>
+                  <div class="step-t">Sisa kartu setelah selesai dibagi menjadi <b>tumpukan kartu tertutup di tengah</b>.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
-  const track     = document.getElementById('track');
-  const viewport  = document.getElementById('viewport');
-  const dotsEl    = document.getElementById('dots');
-  const prog      = document.getElementById('prog');
-  const progLabel = document.getElementById('prog-label');
+        <!-- CARD 3 -->
+        <section class="card">
+          <div class="card-inner">
+            <div class="card-num">03 / 07</div>
+            <div class="card-tiket">⚠️</div>
+            <div class="card-title">Aturan Mutlak!</div>
+            <div class="card-body">
+              <div class="box" style="--box-color: var(--rust)">
+                Urutan kartu di tanganmu <b>TIDAK BOLEH diubah</b> sepanjang permainan.
+                <br><br>
+                Kartu terbaru yang diambil selalu masuk ke posisi paling belakang.
+              </div>
+            </div>
+          </div>
+        </section>
 
-  const slides = [...document.querySelectorAll('.card')];
-  const total  = slides.length;
+        <!-- CARD 4 -->
+        <section class="card">
+          <div class="card-inner">
+            <div class="card-num">04 / 07</div>
+            <div class="card-tiket">🔄</div>
+            <div class="card-title">4 Fase Pemain Memulai</div>
+            <div class="card-body">
+              <div class="steps">
+                <div class="step">
+                  <div class="step-n">1</div>
+                  <div class="step-t">
+                    <b>Koleksi Tangan</b><br>
+                    Selalu pasang kartu terdepan ke area koleksi.
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="step-n">2</div>
+                  <div class="step-t">
+                    <b>Buka & Dagang</b><br>
+                    Buka 2 kartu tumpukan tengah lalu ambil buat sendiri atau tawarkan ke pemain lain.
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="step-n">3</div>
+                  <div class="step-t">
+                    <b>Koleksi Dagang</b><br>
+                    Pasang hasil barter ke area koleksi.
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="step-n">4</div>
+                  <div class="step-t">
+                    <b>Draw Card</b><br>
+                    Ambil 3 kartu baru. Ke pemain selanjutnya
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
-  let current = 0;
+        <!-- CARD 5 -->
+        <section class="card">
+          <div class="card-inner">
+            <div class="card-num">05 / 07</div>
+            <div class="card-tiket">🏕️</div>
+            <div class="card-title">Kolom Aktivitas</div>
+            <div class="card-body">
+              • Setiap pemain memiliki <b>2 + 1 kolom aktivitas</b>.
+              <br><br>
+              • Kamu bisa menambah menjadi <b>3 kolom aktivitas</b> dengan membayar <b>2 tiket emblem</b>.
+              <br><br>
+              • Satu kolom hanya untuk <b>1 jenis aktivitas</b>.
+              <br><br>
+              • Kamu bebas kumpulkan tiket emblem kapan saja untuk membuka slot koleksi baru.
+            </div>
+          </div>
+        </section>
 
-  let startX = 0;
-  let deltaX = 0;
-  let dragging = false;
+        <!-- CARD 6 -->
+        <section class="card">
+          <div class="card-inner">
+            <div class="card-num">06 / 07</div>
+            <div class="card-tiket">🏆</div>
+            <div class="card-title">Panen & Skor</div>
+            <div class="card-body">
+              Kamu bisa kumpulkan tiket emblem kapan saja.
+              <br><br>
+              Tingkatan angka kartu di sebelah kiri menunjukkan jumlah kartu yang dibutuhkan untuk mendapatkan tiket emblem.
+              <br><br>
+              Saat panen, balik kartu sehingga tiket emblem terlihat lalu letakkan di tumpukan personal dan buang sisanya ke tumpukan terbuka ditengah.
+            </div>
+          </div>
+        </section>
 
-  slides.forEach((_,i)=>{
-    const dot = document.createElement('button');
-    dot.className = 'dot-btn';
+        <!-- CARD 7 -->
+        <section class="card">
+          <div class="card-inner">
+            <div class="card-num">07 / 07</div>
+            <div class="card-tiket">🥇</div>
+            <div class="card-title">Akhir Permainan</div>
+            <div class="card-body">
+              Permainan selesai saat <b>tumpukan kartu tertutup di tengah sudah 2 kali diacak</b>.
+              <br><br>
+              • Semua pemain koleksi tiket emblem dari sisa kartu.<br>
+              • 1 tiket = 1 poin.<br>
+              • jumlahkan tiket emblem, yang terbanyak menang.
+              <br><br>
+              <div class="box" style="--box-color: var(--amber)">
+                🤝 Seri?<br>
+                Pemain yang duduk paling jauh dari Starting Player menang.
+              </div>
+            </div>
+          </div>
+        </section>
 
-    dot.addEventListener('click', ()=>{
-      goTo(i);
-    });
+      </div>
+    </div>
+  </div>
 
-    dotsEl.appendChild(dot);
-  });
+  <div class="nav-dots" id="dots"></div>
 
-  function updateUI(){
+  <script>
+    (() => {
+      const track = document.getElementById('track');
+      const viewport = document.getElementById('viewport');
+      const dotsEl = document.getElementById('dots');
+      const prog = document.getElementById('prog');
+      const progLabel = document.getElementById('prog-label');
 
-    track.style.transform =
-      `translateX(-${current * window.innerWidth}px)`;
+      const slides = [...document.querySelectorAll('.card')];
+      const total = slides.length;
 
-    document
-      .querySelectorAll('.dot-btn')
-      .forEach((d,i)=>{
-        d.classList.toggle('active', i===current);
+      let current = 0;
+      let startX = 0;
+      let deltaX = 0;
+      let dragging = false;
+
+      slides.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'dot-btn';
+        dot.addEventListener('click', () => {
+          goTo(i);
+        });
+        dotsEl.appendChild(dot);
       });
 
-    const pct = (current / (total - 1)) * 100;
+      function updateUI() {
+        track.style.transform = `translateX(-${current * window.innerWidth}px)`;
+        document.querySelectorAll('.dot-btn').forEach((d, i) => {
+          d.classList.toggle('active', i === current);
+        });
+        const pct = (current / (total - 1)) * 100;
+        prog.style.width = pct + '%';
+        progLabel.textContent = `${current + 1} / ${total}`;
+      }
 
-    prog.style.width = pct + '%';
+      function goTo(index) {
+        current = Math.max(0, Math.min(total - 1, index));
+        track.style.transition = 'transform .35s cubic-bezier(.4, 0, .2, 1)';
+        updateUI();
+      }
 
-    progLabel.textContent =
-      `${current + 1} / ${total}`;
-  }
+      function pointerDown(x) {
+        dragging = true;
+        startX = x;
+        deltaX = 0;
+        track.style.transition = 'none';
+      }
 
-  function goTo(index){
+      function pointerMove(x) {
+        if (!dragging) return;
+        deltaX = x - startX;
+        const base = -(current * window.innerWidth);
+        track.style.transform = `translateX(${base + deltaX}px)`;
+      }
 
-    current = Math.max(
-      0,
-      Math.min(total - 1, index)
-    );
+      function pointerUp() {
+        if (!dragging) return;
+        dragging = false;
+        const threshold = 60;
+        if (deltaX < -threshold) {
+          goTo(current + 1);
+        } else if (deltaX > threshold) {
+          goTo(current - 1);
+        } else {
+          goTo(current);
+        }
+      }
 
-    track.style.transition =
-      'transform .35s cubic-bezier(.4,0,.2,1)';
+      viewport.addEventListener('mousedown', e => pointerDown(e.clientX));
+      viewport.addEventListener('mousemove', e => pointerMove(e.clientX));
+      viewport.addEventListener('mouseup', pointerUp);
+      viewport.addEventListener('mouseleave', pointerUp);
 
-    updateUI();
-  }
+      viewport.addEventListener('touchstart', e => {
+        pointerDown(e.touches[0].clientX);
+      }, { passive: true });
 
-  function pointerDown(x){
+      viewport.addEventListener('touchmove', e => {
+        pointerMove(e.touches[0].clientX);
+      }, { passive: true });
 
-    dragging = true;
+      viewport.addEventListener('touchend', pointerUp);
 
-    startX = x;
-    deltaX = 0;
+      document.addEventListener('keydown', e => {
+        if (e.key === 'ArrowRight') goTo(current + 1);
+        if (e.key === 'ArrowLeft') goTo(current - 1);
+      });
 
-    track.style.transition = 'none';
-  }
+      window.addEventListener('resize', () => {
+        goTo(current);
+      });
 
-  function pointerMove(x){
-
-    if(!dragging) return;
-
-    deltaX = x - startX;
-
-    const base =
-      -(current * window.innerWidth);
-
-    track.style.transform =
-      `translateX(${base + deltaX}px)`;
-  }
-
-  function pointerUp(){
-
-    if(!dragging) return;
-
-    dragging = false;
-
-    const threshold = 60;
-
-    if(deltaX < -threshold){
-      goTo(current + 1);
-    }
-    else if(deltaX > threshold){
-      goTo(current - 1);
-    }
-    else{
-      goTo(current);
-    }
-  }
-
-  viewport.addEventListener('mousedown', e=>{
-    pointerDown(e.clientX);
-  });
-
-  viewport.addEventListener('mousemove', e=>{
-    pointerMove(e.clientX);
-  });
-
-  viewport.addEventListener('mouseup', pointerUp);
-
-  viewport.addEventListener('mouseleave', pointerUp);
-
-  viewport.addEventListener('touchstart', e=>{
-    pointerDown(e.touches[0].clientX);
-  }, {passive:true});
-
-  viewport.addEventListener('touchmove', e=>{
-    pointerMove(e.touches[0].clientX);
-  }, {passive:true});
-
-  viewport.addEventListener('touchend', pointerUp);
-
-  document.addEventListener('keydown', e=>{
-
-    if(e.key === 'ArrowRight'){
-      goTo(current + 1);
-    }
-
-    if(e.key === 'ArrowLeft'){
-      goTo(current - 1);
-    }
-  });
-
-  window.addEventListener('resize', ()=>{
-    goTo(current);
-  });
-
-  updateUI();
-
-})();
-</script>
+      updateUI();
+    })();
+  </script>
 
 </body>
 </html>
